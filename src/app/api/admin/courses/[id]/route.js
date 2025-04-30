@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import dbConnect from "@/lib/dbConnect";
+import { connectToDatabase } from "@/lib/db";
 import Course from "@/models/Course";
 
 /**
@@ -8,7 +8,7 @@ import Course from "@/models/Course";
  * @route GET /api/admin/courses/[id]
  */
 export async function GET(req, context) {
-  await dbConnect();
+  await connectToDatabase();
   const { id } = await context.params;
 
   // Validate Course ID
@@ -34,7 +34,7 @@ export async function GET(req, context) {
  * @route PUT /api/admin/courses/[id]
  */
 export async function PUT(req, { params }) {
-  await dbConnect();
+  await connectToDatabase();
   const { id } = params;
 
   // Validate Course ID

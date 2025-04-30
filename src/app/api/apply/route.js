@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import dbConnect from "@/lib/dbConnect";
+import { connectToDatabase } from "@/lib/db";
 import Application from "@/models/Application";
 import cloudinary from "@/lib/cloudinary";
 
@@ -38,7 +38,7 @@ export async function POST(req) {
       );
     }
 
-    await dbConnect();
+    await connectToDatabase();
 
     // Check for duplicate application (same email + jobId)
     const existing = await Application.findOne({ email, jobId });

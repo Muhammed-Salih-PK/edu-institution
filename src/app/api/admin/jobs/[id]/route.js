@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import dbConnect from "@/lib/dbConnect";
+import { connectToDatabase } from "@/lib/db";
 import Job from "@/models/Job";
 
 export async function GET(req, { params }) {
   try {
-    await dbConnect();
+    await connectToDatabase();
     const { id } = await params;
     
     if (!id?.match(/^[0-9a-fA-F]{24}$/)) {
@@ -37,7 +37,7 @@ export async function GET(req, { params }) {
 
 export async function PUT(req, { params }) {
   try {
-    await dbConnect();
+    await connectToDatabase();
     const { id } = await params;
     
     if (!id?.match(/^[0-9a-fA-F]{24}$/)) {

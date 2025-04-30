@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import dbConnect from "@/lib/dbConnect";
+import { connectToDatabase } from "@/lib/db";
 import Course from "@/models/Course";
 import mongoose from "mongoose";
 
@@ -9,7 +9,7 @@ import mongoose from "mongoose";
  * @access Public
  */
 export async function GET() {
-  await dbConnect();
+  await connectToDatabase();
 
   try {
     const courses = await Course.find();
@@ -30,7 +30,7 @@ export async function GET() {
  * @access Private/Admin
  */
 export async function POST(req) {
-  await dbConnect();
+  await connectToDatabase();
 
   try {
     // Ensure request body is valid JSON
@@ -69,7 +69,7 @@ export async function POST(req) {
  * @access Private/Admin
  */
 export async function DELETE(req) {
-  await dbConnect();
+  await connectToDatabase();
 
   try {
     // Ensure request body is valid JSON

@@ -1,12 +1,12 @@
 
-import dbConnect from "@/lib/dbConnect";
+import { connectToDatabase } from "@/lib/db";
 import Application from "@/models/Application";
 import Job from "@/models/Job";
 import ExcelJS from "exceljs";
 
 export const GET = async (req) => {
   try {
-    await dbConnect();
+    await connectToDatabase();
 
     const jobs = await Job.find({});
     const workbook = new ExcelJS.Workbook();

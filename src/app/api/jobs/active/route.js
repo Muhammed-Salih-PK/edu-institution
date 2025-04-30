@@ -1,11 +1,11 @@
 // app/api/jobs/active/route.js
 import { NextResponse } from "next/server";
-import dbConnect from "@/lib/dbConnect";
+import { connectToDatabase } from "@/lib/db";
 import Job from "@/models/Job";
 
 export async function GET() {
   try {
-    await dbConnect();
+    await connectToDatabase();
     const now = new Date();
     const jobs = await Job.find({
       isActive: true,

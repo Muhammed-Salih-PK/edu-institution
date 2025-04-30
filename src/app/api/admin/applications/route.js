@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import dbConnect from "@/lib/dbConnect";
+import { connectToDatabase } from "@/lib/db";
 import Application from "@/models/Application";
 import Job from "@/models/Job";
 
@@ -9,7 +9,7 @@ import Job from "@/models/Job";
  * @access Private
  */
 export async function GET() {
-  await dbConnect();
+  await connectToDatabase()
 
   try {
     const applications = await Application.find()
@@ -39,7 +39,7 @@ export async function GET() {
  * @access Private
  */
 export async function DELETE(req) {
-  await dbConnect();
+  await connectToDatabase()
 
   try {
     const { id } = await req.json();
@@ -79,7 +79,7 @@ export async function DELETE(req) {
 //  * @access public
 //  */
 // export async function POST(req) {
-//   await dbConnect();
+//   await connectToDatabase();
 
 //   try {
 //     // Ensure request body is valid JSON

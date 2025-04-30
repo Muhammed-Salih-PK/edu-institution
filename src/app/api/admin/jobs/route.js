@@ -1,12 +1,12 @@
 // app/api/admin/jobs/route.js
 import { NextResponse } from "next/server";
-import dbConnect from "@/lib/dbConnect";
+import { connectToDatabase } from "@/lib/db";
 import Job from "@/models/Job";
 import Application from "@/models/Application";
 
 export async function GET() {
   try {
-    await dbConnect();
+    await connectToDatabase();
     const jobs = await Job.find().sort({ createdAt: -1 }).lean();
     return NextResponse.json(jobs);
   } catch (error) {
@@ -20,7 +20,7 @@ export async function GET() {
 
 export async function POST(request) {
   try {
-    await dbConnect();
+    await connectToDatabase();
     const data = await request.json();
 
     // Validate required fields
@@ -53,7 +53,7 @@ export async function POST(request) {
 
 export async function DELETE(request) {
   try {
-    await dbConnect();
+    await connectToDatabase();
     const { id } = await request.json();
 
     if (!id?.match(/^[0-9a-fA-F]{24}$/)) {
