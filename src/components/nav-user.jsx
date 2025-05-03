@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter } from "next/navigation"; // Import useRouter
-import { signOut } from "next-auth/react";
 import { IconCreditCard, IconDotsVertical, IconLogout, IconNotification, IconUserCircle } from "@tabler/icons-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -14,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
+import { toast } from "sonner";
 
 export function NavUser({ user }) {
   const { isMobile } = useSidebar();
@@ -21,16 +21,21 @@ export function NavUser({ user }) {
 
   const handleLogout = async () => {
     try {
-      await signOut({
-        redirect: true,
-        callbackUrl: "/admin/login", // After logout, go to login page
-      });
+      const res = await fetch("/api/auth/logout", { method: "POST" });
+      if (res.ok) {
+        toast.success("Logged out successfully");
+        window.location.href = "/admin/login";
+      } else {
+        throw new Error("Logout failed");
+      }
     } catch (error) {
-      console.error("Logout error:");
+      console.error("Logout error:", error);
       toast.error("Logout failed. Please try again.");
     }
   };
-
+ const handleAccount = ()=>{
+  router.push("/admin/account")
+ }
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -68,7 +73,7 @@ export function NavUser({ user }) {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={handleAccount} className='cursor-pointer'>
                 <IconUserCircle />
                 Account
               </DropdownMenuItem>

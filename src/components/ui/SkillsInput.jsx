@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 
-export function SkillsInput({ value = [], onChange, name, placeholder = "Type a skill and press enter" }) {
+export default function SkillsInput({ value = [], onChange, name, placeholder = "Type a skill and press enter" }) {
   const [inputValue, setInputValue] = useState("");
   const [skills, setSkills] = useState([]);
 

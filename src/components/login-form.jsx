@@ -60,7 +60,7 @@ export function LoginForm({ className, formData, handleChange, handlesubmit, err
           {/* Side Image (Only visible on larger screens) */}
           <div className="bg-muted relative hidden md:block">
             <img
-              src="/placeholder.svg"
+              src="/img/placeholder.webp"
               alt="Login Illustration"
               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
             />

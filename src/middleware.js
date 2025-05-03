@@ -1,37 +1,34 @@
-import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
+import { verifyJwtToken } from '@/lib/auth';
 
-export default withAuth(
-  function middleware(req) {
-    const url = req.nextUrl;
-    const token = req.nextauth.token;
 
-    if (!token) {
-      if (url.pathname !== "/admin/login") {
-        return NextResponse.redirect(new URL("/admin/login", req.url));
-      }
-      return NextResponse.next();  // Allow /admin/login if not authenticated
+export async function middleware(req) {
+  const url = req.nextUrl;
+  const token = req.cookies.get("adminToken")?.value;
+
+  try {
+    if (!token && url.pathname !== "/admin/login") {
+      return NextResponse.redirect(new URL("/admin/login", req.url));
     }
 
-    if (url.pathname === "/admin/login") {
-      return NextResponse.redirect(new URL("/admin/dashboard", req.url));
+    if (token) {
+      await verifyJwtToken(token); // use jose instead of jsonwebtoken
     }
 
-    if (url.pathname === "/admin") {
+    if (url.pathname === "/admin/login" && token) {
       return NextResponse.redirect(new URL("/admin/dashboard", req.url));
     }
 
     return NextResponse.next();
-  },
-  {
-    callbacks: {
-      authorized: ({ token }) => true,  // Always true, logic handled manually
-    },
+  } catch (error) {
+    console.error(`[${new Date().toISOString()}] JWT failed at ${url.pathname}:`, error.message);
+    if (url.pathname !== "/admin/login") {
+      return NextResponse.redirect(new URL("/admin/login", req.url));
+    }
+    return NextResponse.next();
   }
-);
+}
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin","/admin/:path*"],
 };
-
-

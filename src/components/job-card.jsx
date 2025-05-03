@@ -39,10 +39,10 @@ export function JobCards({ job, onDelete, onStatusChange, formatDate }) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
+    <div className="bg-white dark:bg-black rounded-lg shadow-md overflow-hidden border dark:border-gray-700 border-gray-200">
       <div className="p-6">
         <div className="flex justify-between items-start mb-3">
-          <h3 className="text-xl font-semibold text-gray-900">{job.title}</h3>
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{job.title}</h3>
           <div className="flex items-center space-x-2">
             {job.status === "active" && new Date(job.createdAt) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) && (
               <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
@@ -59,21 +59,21 @@ export function JobCards({ job, onDelete, onStatusChange, formatDate }) {
           </div>
         </div>
 
-        <p className="text-gray-600 text-sm line-clamp-2 mb-4">{job.description}</p>
+        <p className="text-gray-600 text-sm line-clamp-2 mb-4 dark:text-gray-300">{job.description}</p>
 
         <div className="space-y-3 mb-6">
-          <div className="flex items-center text-sm text-gray-600">
+          <div className="flex items-center text-sm text-gray-600 dark:text-white">
             <FaMapMarkerAlt className="mr-2 text-blue-500" />
             <span>
               {job.locationType === "remote" ? "Remote" : job.location}
               {job.locationType === "hybrid" && " (Hybrid)"}
             </span>
           </div>
-          <div className="flex items-center text-sm text-gray-600">
+          <div className="flex items-center text-sm text-gray-600 dark:text-white">
             <FaMoneyBillWave className="mr-2 text-blue-500" />
             <span>{job.salary}</span>
           </div>
-          <div className="flex items-center text-sm text-gray-600">
+          <div className="flex items-center text-sm text-gray-600 dark:text-white">
             <FaClock className="mr-2 text-blue-500" />
             <span>Apply by {formatDate(job.deadline)}</span>
           </div>
@@ -82,7 +82,7 @@ export function JobCards({ job, onDelete, onStatusChange, formatDate }) {
         <div className="flex justify-between items-center">
           <Link 
             href={`/admin/jobs/edit/${job._id}`}
-            className="text-sm font-medium text-blue-600 hover:text-blue-800"
+            className="text-sm font-medium text-blue-600 hover:text-blue-800 "
           >
             Edit
           </Link>

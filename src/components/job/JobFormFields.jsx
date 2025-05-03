@@ -2,15 +2,9 @@
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-export const JobFormFields = ({ formData, handleChange, loading }) => {
+const JobFormFields = ({ formData, handleChange, loading }) => {
   // Department options
   const departments = [
     { value: "engineering", label: "Engineering" },
@@ -38,14 +32,14 @@ export const JobFormFields = ({ formData, handleChange, loading }) => {
   ];
 
   return (
-    <div className="space-y-4">
+    <div className='space-y-4'>
       {/* Job Title */}
-      <div className="space-y-2">
-        <Label htmlFor="title">Job Title*</Label>
+      <div className='space-y-2'>
+        <Label htmlFor='title'>Job Title*</Label>
         <Input
-          id="title"
-          name="title"
-          placeholder="Senior Software Engineer"
+          id='title'
+          name='title'
+          placeholder='Senior Software Engineer'
           value={formData.title}
           onChange={handleChange}
           disabled={loading}
@@ -54,35 +48,33 @@ export const JobFormFields = ({ formData, handleChange, loading }) => {
       </div>
 
       {/* Job Description */}
-      <div className="space-y-2">
-        <Label htmlFor="description">Description*</Label>
+      <div className='space-y-2'>
+        <Label htmlFor='description'>Description*</Label>
         <Textarea
-          id="description"
-          name="description"
-          placeholder="Describe the role, responsibilities, and requirements..."
+          id='description'
+          name='description'
+          placeholder='Describe the role, responsibilities, and requirements...'
           value={formData.description}
           onChange={handleChange}
           disabled={loading}
           required
           minLength={10}
-          className="min-h-[120px]"
+          className='min-h-[120px]'
         />
       </div>
 
       {/* Department and Employment Type */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-2">
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+        <div className='space-y-2'>
           <Label>Department*</Label>
           <Select
             value={formData.department}
-            onValueChange={(value) => 
-              handleChange({ target: { name: "department", value } })
-            }
+            onValueChange={(value) => handleChange({ target: { name: "department", value } })}
             disabled={loading}
             required
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select department" />
+              <SelectValue placeholder='Select department' />
             </SelectTrigger>
             <SelectContent>
               {departments.map((dept) => (
@@ -94,18 +86,16 @@ export const JobFormFields = ({ formData, handleChange, loading }) => {
           </Select>
         </div>
 
-        <div className="space-y-2">
+        <div className='space-y-2'>
           <Label>Employment Type*</Label>
           <Select
             value={formData.employmentType}
-            onValueChange={(value) => 
-              handleChange({ target: { name: "employmentType", value } })
-            }
+            onValueChange={(value) => handleChange({ target: { name: "employmentType", value } })}
             disabled={loading}
             required
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select type" />
+              <SelectValue placeholder='Select type' />
             </SelectTrigger>
             <SelectContent>
               {employmentTypes.map((type) => (
@@ -119,19 +109,17 @@ export const JobFormFields = ({ formData, handleChange, loading }) => {
       </div>
 
       {/* Location Type and Physical Location */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-2">
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+        <div className='space-y-2'>
           <Label>Work Arrangement*</Label>
           <Select
             value={formData.locationType}
-            onValueChange={(value) => 
-              handleChange({ target: { name: "locationType", value } })
-            }
+            onValueChange={(value) => handleChange({ target: { name: "locationType", value } })}
             disabled={loading}
             required
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select work arrangement" />
+              <SelectValue placeholder='Select work arrangement' />
             </SelectTrigger>
             <SelectContent>
               {locationTypes.map((loc) => (
@@ -143,18 +131,12 @@ export const JobFormFields = ({ formData, handleChange, loading }) => {
           </Select>
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="location">
-            {formData.locationType === 'remote' ? 'Company Location' : 'Office Location*'}
-          </Label>
+        <div className='space-y-2'>
+          <Label htmlFor='location'>{formData.locationType === "remote" ? "Company Location" : "Office Location*"}</Label>
           <Input
-            id="location"
-            name="location"
-            placeholder={
-              formData.locationType === 'remote' 
-                ? "e.g. Based in San Francisco" 
-                : "e.g. New York Office"
-            }
+            id='location'
+            name='location'
+            placeholder={formData.locationType === "remote" ? "e.g. Based in San Francisco" : "e.g. New York Office"}
             value={formData.location}
             onChange={handleChange}
             disabled={loading}
@@ -164,13 +146,13 @@ export const JobFormFields = ({ formData, handleChange, loading }) => {
       </div>
 
       {/* Salary and Deadline */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="salary">Salary Range*</Label>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+        <div className='space-y-2'>
+          <Label htmlFor='salary'>Salary Range*</Label>
           <Input
-            id="salary"
-            name="salary"
-            placeholder="$75,000 - $95,000 or Competitive"
+            id='salary'
+            name='salary'
+            placeholder='$75,000 - $95,000 or Competitive'
             value={formData.salary}
             onChange={handleChange}
             disabled={loading}
@@ -178,12 +160,12 @@ export const JobFormFields = ({ formData, handleChange, loading }) => {
           />
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="deadline">Application Deadline*</Label>
+        <div className='space-y-2'>
+          <Label htmlFor='deadline'>Application Deadline*</Label>
           <Input
-            id="deadline"
-            type="date"
-            name="deadline"
+            id='deadline'
+            type='date'
+            name='deadline'
             value={formData.deadline}
             onChange={handleChange}
             disabled={loading}
@@ -195,3 +177,5 @@ export const JobFormFields = ({ formData, handleChange, loading }) => {
     </div>
   );
 };
+
+export default JobFormFields;

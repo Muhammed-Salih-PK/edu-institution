@@ -1,18 +1,8 @@
-
 import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-
-export default async function Layout({ children }) {
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
-    redirect("/admin/login");
-  }
+export default async function Layout({ children, req }) {
   return (
     <SidebarProvider>
       <AppSidebar variant='inset' />
@@ -22,4 +12,11 @@ export default async function Layout({ children }) {
       </SidebarInset>
     </SidebarProvider>
   );
+}
+
+export async function generateMetadata() {
+  return {
+    title: "Admin Panel",
+    robots: "noindex, nofollow", // Prevent search engines from indexing this page
+  };
 }

@@ -5,10 +5,8 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import dynamic from "next/dynamic";
-
-const JobFormFields = dynamic(() => import("@/components/job/JobFormFields"));
-const SkillsInput = dynamic(() => import("@/components/ui/SkillsInput"));
+import JobFormFields from "@/components/job/JobFormFields";
+import SkillsInput from "@/components/ui/SkillsInput";
 
 export default function AddJob() {
   const router = useRouter();
@@ -30,25 +28,19 @@ export default function AddJob() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear error when field is changed
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
-    }
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
   const handleSkillsChange = (e) => {
     const skills = Array.isArray(e.target.value) ? e.target.value : [];
     setFormData((prev) => ({ ...prev, skillsRequired: skills }));
-    if (errors.skillsRequired) {
-      setErrors((prev) => ({ ...prev, skillsRequired: "" }));
-    }
+    if (errors.skillsRequired) setErrors((prev) => ({ ...prev, skillsRequired: "" }));
   };
 
   const validateForm = () => {
     const newErrors = {};
-
     if (!formData.title.trim()) newErrors.title = "Job title is required";
-    if (formData.description.length < 10) newErrors.description = "Description must be at least 20 characters";
+    if (formData.description.length < 20) newErrors.description = "Description must be at least 20 characters";
     if (!formData.department) newErrors.department = "Department is required";
     if (!formData.employmentType) newErrors.employmentType = "Employment type is required";
     if (!formData.locationType) newErrors.locationType = "Work arrangement is required";
@@ -58,15 +50,15 @@ export default function AddJob() {
     if (formData.skillsRequired.length === 0) newErrors.skillsRequired = "At least one skill is required";
 
     const salaryRegex = /^(\$?\d{1,3}(,\d{3})*(\.\d{2})?|\d+)(\s*-\s*(\$?\d{1,3}(,\d{3})*(\.\d{2})?|\d+))?$/;
-    if (!formData.salary.trim()) {
-      newErrors.salary = "Salary information is required";
-    } else if (!salaryRegex.test(formData.salary)) {
-      newErrors.salary = "Invalid format. Use: $75,000 or $75,000 - $95,000";
-    }
+    if (!formData.salary.trim()) newErrors.salary = "Salary information is required";
+    else if (!salaryRegex.test(formData.salary)) newErrors.salary = "Invalid format. Use: $75,000 or $75,000 - $95,000";
 
+    const deadlineDate = new Date(formData.deadline);
     if (!formData.deadline) {
       newErrors.deadline = "Deadline is required";
-    } else if (new Date(formData.deadline) < new Date()) {
+    } else if (isNaN(deadlineDate)) {
+      newErrors.deadline = "Invalid deadline date";
+    } else if (deadlineDate < new Date()) {
       newErrors.deadline = "Deadline must be in the future";
     }
 
@@ -96,10 +88,20 @@ export default function AddJob() {
       }
 
       toast.success("Job posting created successfully!");
-      router.push("/admin/jobs");
-      router.refresh(); // Refresh the page to show new data
+      setFormData({
+        title: "",
+        description: "",
+        department: "",
+        employmentType: "",
+        locationType: "remote",
+        location: "",
+        salary: "",
+        skillsRequired: [],
+        deadline: "",
+        isActive: true,
+      });
+      router.replace("/admin/jobs");
     } catch (error) {
-      console.error("Submission error:");
       toast.error(error.message || "An error occurred while creating the job");
     } finally {
       setLoading(false);
