@@ -1,36 +1,125 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+---
 
-First, run the development server:
+# 🎓 EduMosaic – Institutional Arabic Learning Platform
+
+📍 Live Site: [edu-institution.vercel.app](https://edu-institution.vercel.app)
+📂 GitHub: [github.com/Muhammed-Salih-PK/edu-institution](https://github.com/Muhammed-Salih-PK/edu-institution)
+
+EduMosaic is a full-stack Arabic learning platform built specifically for educational institutions that teach Arabic language and culture. It empowers administrators, instructors, and students with a centralized, modern web portal for managing courses, submitting applications, and tracking progress.
+
+---
+
+## 🏫 Institutional Overview
+
+Designed for real-world academic deployment, EduMosaic is ideal for Arabic institutes, schools, or organizations that want to:
+
+* Digitize their Arabic curriculum
+* Manage instructors, students, and applications from one secure dashboard
+* Deliver video-based lessons and track learner engagement
+* Handle file submissions (resumes, portfolios) via the cloud
+
+It brings together everything an institution needs to provide an engaging and scalable digital Arabic learning experience.
+
+---
+
+## 🌟 Key Features
+
+* 📝 Course creation with lesson videos and structured content
+* 📈 Student progress tracking through curriculum milestones
+* 🧑‍💼 Admin dashboard to manage users, courses, and applications
+* 💳 Stripe integration for payment collection
+* ☁️ Resume/file upload support using Cloudinary
+* 📬 Automatic email notifications (Arabic + English support)
+* 🔐 Secure login system using JWT and bcrypt
+
+---
+
+## 🛠 Tech Stack
+
+* 🔧 Framework: Next.js (App Router)
+* 🎨 Styling: Tailwind CSS + shadcn/ui
+* 🗄 Database: MongoDB + Mongoose
+* 🔐 Authentication: JWT & bcrypt (no NextAuth)
+* ☁️ File Hosting: Cloudinary
+* 💳 Payments: Stripe
+* 🚀 Deployment: Vercel
+
+---
+
+## 🔐 Authentication & Security
+
+* Fully custom JWT-based login system
+* Passwords hashed with bcrypt
+* Middleware-based route protection for admin pages
+* No third-party auth providers; 100% institutional control
+
+---
+
+## ☁️ Cloudinary Integration
+
+* Resume and media files uploaded securely to Cloudinary
+* Stored public IDs in MongoDB for easy access by admin
+* "View Resume" feature on admin dashboard
+* Fast and scalable media delivery
+
+---
+
+## 🧪 How to Run Locally
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/Muhammed-Salih-PK/edu-institution.git
+cd edu-institution
+npm install
+```
+
+2. Create a .env.local file with the following:
+
+```env
+MONGO_URL=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+DB_NAME=Database_name
+```
+
+3. Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 📈 Feature Upgrades
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Feature        | Old System        | EduMosaic Upgrade                        |
+| -------------- | ----------------- | ---------------------------------------- |
+| Authentication | next-auth         | JWT + bcrypt-based secure login          |
+| Database       | MySQL             | MongoDB with Mongoose                    |
+| UI Framework   | Vanilla CSS       | Tailwind CSS + shadcn/ui                 |
+| File Handling  | Email Attachments | Cloudinary cloud uploads & resume viewer |
+| Deployment     | Shared Hosting    | Vercel + Edge Functions                  |
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📸 Screenshots
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+You can add relevant screenshots here:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+* 🧑‍🎓 Student Dashboard
+* 🎓 Course Details
+* 📋 Application Form
+* 🗃️ Admin Course Management
+* 📂 Resume Viewer Modal
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📄 License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT © 2025 Muhammed Salih PK
+
+---
