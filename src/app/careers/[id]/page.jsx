@@ -40,7 +40,7 @@ export default function JobDetailPage() {
 
     const fetchJob = async () => {
       try {
-        const res = await fetch(`/api/admin/jobs/${id}`);
+        const res = await fetch(`/api/jobs/${id}`);
         if (!res.ok) throw new Error("Failed to fetch job");
         const data = await res.json();
         setJobData(data);

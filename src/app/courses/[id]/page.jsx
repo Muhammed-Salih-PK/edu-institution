@@ -20,7 +20,7 @@ export default function SingleCourse() {
 
     const fetchCourse = async () => {
       try {
-        const res = await fetch(`/api/admin/courses/${id}`);
+        const res = await fetch(`/api/courses/${id}`);
         if (!res.ok) throw new Error("Failed to fetch course");
         const data = await res.json();
         setCourse(data);
