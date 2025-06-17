@@ -3,7 +3,7 @@ import Admin from "@/models/Admin";
 import { NextResponse } from "next/server";
 import { signJwtToken } from "@/lib/auth";
 import bcrypt from "bcryptjs";
-
+import { cookies } from "next/headers";
 
 export async function POST(request) {
   try {
@@ -49,7 +49,9 @@ export async function POST(request) {
       admin: { email: admin.email, id: admin._id, role: admin.role },
     });
 
-    response.cookies.set("adminToken", token, {
+    const cookieStore = await cookies(); // ✅ await required
+
+    cookieStore.set("adminToken", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",

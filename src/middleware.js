@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { verifyJwtToken } from '@/lib/auth';
-
+import { verifyJwtToken } from "@/lib/auth";
 
 export async function middleware(req) {
   const url = req.nextUrl;
@@ -21,7 +20,10 @@ export async function middleware(req) {
 
     return NextResponse.next();
   } catch (error) {
-    console.error(`[${new Date().toISOString()}] JWT failed at ${url.pathname}:`, error.message);
+    console.error(
+      `[${new Date().toISOString()}] JWT failed at ${url.pathname}:`,
+      error.message
+    );
     if (url.pathname !== "/admin/login") {
       return NextResponse.redirect(new URL("/admin/login", req.url));
     }
@@ -30,5 +32,5 @@ export async function middleware(req) {
 }
 
 export const config = {
-  matcher: ["/admin","/admin/:path*","/api/admin","/api/admin/:path*"],
+  matcher: ["/admin", "/admin/:path*", "/api/admin", "/api/admin/:path*"],
 };

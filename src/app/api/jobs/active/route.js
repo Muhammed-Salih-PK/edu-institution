@@ -10,9 +10,11 @@ export async function GET() {
     const jobs = await Job.find({
       isActive: true,
       status: "active",
-      deadline: { $gte: now }
-    }).sort({ createdAt: -1 }).lean();
-    
+      deadline: { $gte: now },
+    })
+      .sort({ createdAt: -1 })
+      .lean();
+
     return NextResponse.json(jobs);
   } catch (error) {
     console.error("Error fetching active jobs:");
